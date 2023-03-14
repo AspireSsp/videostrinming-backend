@@ -43,8 +43,7 @@ exports.getAllVideo = async (req, res) => {
 exports.addLike = async (req, res) => {
     try {
         const { videoId, userId } = req.query;
-        var post = await Post.findOne({ _id: videoId });
-        // console.log(post);
+        var post = await Post.findById(videoId);
         post.isLiked.push(userId);
         const neww = await Post.findByIdAndUpdate(videoId, post)
         const result = await Post.findOne({ _id: videoId });
@@ -58,7 +57,7 @@ exports.removeLike = async (req, res) => {
     try {
         const { videoId, userId } = req.query;
         var post = await Post.findOne({ _id: videoId });
-        // console.log(userId);
+        // console.log(post);
         result = post.isLiked.filter(ele => ele !== userId)
         // console.log(result);
         const neww = await Post.findByIdAndUpdate(videoId, { isLiked: result });
@@ -123,10 +122,12 @@ exports.addViews = async (req, res) => {
 exports.getVideoById = async(req, res)=>{
     try {
         const id = req.params.id;
-        const post = await Post.findById(id);
-        const user = await User.findById(post._doc.user);
-        console.log(user);
-        res.status(200).json({...post._doc, ...user._doc });
+        var myVideo = await Post.findOne({ _id: id });
+        newViews = myVideo.views + 1;
+        const neww = await Post.findByIdAndUpdate(id, {views :newViews})
+        const result = await Post.findOne({ _id: id });
+        const user = await User.findById(result._doc.user);
+        res.status(200).json({...result._doc, name: user.name, pic:user.pic });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

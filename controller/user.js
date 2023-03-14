@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
         const user = new User({ name, email, password, pic });
 
         const newUser = await user.save();
-        res.status(201).json({ message: "success", newUser})
+        res.status(200).json({ message: "success", newUser})
     } catch (error) {
         console.log(err)
     }
