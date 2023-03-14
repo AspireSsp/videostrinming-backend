@@ -70,10 +70,10 @@ exports.removeLike = async (req, res) => {
 }
 exports.addComment = async (req, res) => {
     try {
-        const { videoId, userId, message } = req.body;
+        const { videoId, userId, message, userName } = req.body;
         var myVideo = await Post.findOne({ _id: videoId });
         // console.log(post);
-        myVideo.isComment.push({ userId, message: message });
+        myVideo.isComment.push({ userId, message: message, userName: userName });
         const neww = await Post.findByIdAndUpdate(videoId, myVideo)
         const result = await Post.findOne({ _id: videoId });
         res.send(result);
@@ -124,7 +124,9 @@ exports.getVideoById = async(req, res)=>{
     try {
         const id = req.params.id;
         const post = await Post.findById(id);
-        res.status(200).json(post);
+        const user = await User.findById(post._doc.user);
+        console.log(user);
+        res.status(200).json({...post._doc, ...user._doc });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

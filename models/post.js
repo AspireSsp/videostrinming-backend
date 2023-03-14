@@ -25,6 +25,7 @@ const postSchema = new mongoose.Schema({
     isComment : [
         {
                 userId: String,
+                userName: String,
                 message: String
         }
     ],
