@@ -4,7 +4,7 @@ const User = require("../models/userModels");
 
 
 exports.addVideo = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { user, video,title, thombnail} = req.body;
     const postdata = await Post.create({
         user, video,title, thombnail
@@ -14,7 +14,7 @@ exports.addVideo = async (req, res) => {
 
 exports.deleteVideo = async (req, res) => {
     const id = req.params.id;
-    console.log(id);
+    // console.log(id);
     const postdata = await Post.findByIdAndDelete(id);
     res.status(200).send(postdata);
 }
@@ -115,6 +115,16 @@ exports.addViews = async (req, res) => {
         const neww = await Post.findByIdAndUpdate(videoId, {views :newViews})
         const result = await Post.findOne({ _id: videoId });
         res.send(result);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+exports.getVideoById = async(req, res)=>{
+    try {
+        const id = req.params.id;
+        const post = await Post.findById(id);
+        res.status(200).json(post);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

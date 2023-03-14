@@ -1,5 +1,5 @@
 const express = require('express');
-const { addLike, removeLike, addComment, removeComment, addVideo, deleteVideo, getAllVideo, getMyAllvideos, addViews } = require('../controller/post');
+const { addLike, removeLike, addComment, removeComment, addVideo, deleteVideo, getAllVideo, getMyAllvideos, addViews, getVideoById } = require('../controller/post');
 const router = express.Router();
 
 
@@ -12,6 +12,7 @@ router.route("/addcomment").post(addComment);
 router.route("/removecomment").put(removeComment);
 router.route('/myallvideos/:id').get(getMyAllvideos)
 router.route("/addviews").get(addViews)
+router.route('/getVideoById/:id').get(getVideoById)
 
  
 
