@@ -6,8 +6,8 @@ const bodyParser = require('body-parser')
 
 // app.use(cors());
 app.use(cors({
-  origin: 'http://localhost:3000',
-  methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
+  origin: '*',
+  methods: ['POST', 'PUT', 'GET', 'OPTIONS','DELETE', 'HEAD'],
   credentials: true
 }));
 app.use(express.urlencoded({ extended: true }));
