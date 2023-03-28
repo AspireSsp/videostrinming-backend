@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema({
         unique:true,
         validate:[validator.isEmail, "Please Enter a valid Email"]
     },
+    Mobile:{
+        type:String,
+        // required:[true,"Please Enter Your Mobile"],    (*optional*)
+        unique:true,
+    },
     password:{
         type:String,
         required:[true, "Please Enter your password"],
@@ -27,7 +32,26 @@ const userSchema = new mongoose.Schema({
     },
     about: {
         type: String,
-    }
+    },
+    socialAccounts : {
+        type : Object,
+    },
+    highestEducation : {
+        type : String
+    },
+    currentJob : {
+        type : String
+    },
+    intetest: [
+        {
+            type : String
+        }
+    ],
+    following : [
+        {
+            type : String
+        }
+    ]
 });
 
 //    we hashing the password...
